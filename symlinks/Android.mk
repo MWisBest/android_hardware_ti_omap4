@@ -17,6 +17,8 @@ include $(CLEAR_VARS)
 
 #include $(CLEAR_VARS)
 
+ifeq ($(BOARD_USE_TI_LIBION),true)
+
 LOCAL_MODULE := libion.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := FAKE
@@ -34,3 +36,4 @@ $(LOCAL_BUILT_MODULE):
 	$(hide) ln -sf $(TARGET) $(SYMLINK)
 	$(hide) touch $@
 
+endif
