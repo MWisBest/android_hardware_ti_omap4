@@ -81,7 +81,7 @@ OMX_ERRORTYPE GLUE_CameraSetParam(OMX_IN OMX_HANDLETYPE
     MEMPLUGIN_BUFFER_PARAMS_INIT(delBuffer_params);
     switch (nParamIndex)
     {
-#ifndef DOMX_TUNA
+#ifndef OMAP_TUNA
 	case OMX_TI_IndexParamComponentBufferAllocation: {
                 OMX_U32 port = 0, index = 0;
 		int fd;
@@ -147,7 +147,7 @@ EXIT:
 
 	}
 
-#ifndef DOMX_TUNA
+#ifndef OMAP_TUNA
 OMX_ERRORTYPE GLUE_CameraVtcAllocateMemory(OMX_IN OMX_HANDLETYPE hComponent, OMX_TI_PARAM_VTCSLICE *pVtcConfig,
 											OMX_U32 nFrmWidth, OMX_U32 nFrmHeight)
 {

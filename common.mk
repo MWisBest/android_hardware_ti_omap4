@@ -39,8 +39,7 @@ PRODUCT_PACKAGES += \
 # symlinks and pvr files
 PRODUCT_PACKAGES += \
     libion.so \
-    pvrsrvinit \
-    libPVRScopeServices.so
+    pvrsrvinit
 
 # compatiblity for older binaries
 PRODUCT_PACKAGES += \

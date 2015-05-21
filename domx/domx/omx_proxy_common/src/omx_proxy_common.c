@@ -1365,7 +1365,7 @@ OMX_ERRORTYPE __PROXY_SetParameter(OMX_IN OMX_HANDLETYPE hComponent,
 			break;
 		}
 #endif
-#ifndef DOMX_TUNA
+#ifndef OMAP_TUNA
 		case OMX_TI_IndexUseBufferDescriptor:
 		     ptBufDescParam = (OMX_TI_PARAM_USEBUFFERDESCRIPTOR *) pParamStruct;
 		     if(ptBufDescParam->bEnabled == OMX_TRUE)
@@ -1474,7 +1474,7 @@ OMX_ERRORTYPE __PROXY_GetParameter(OMX_IN OMX_HANDLETYPE hComponent,
 
 	switch(nParamIndex)
 	{
-#ifndef DOMX_TUNA
+#ifndef OMAP_TUNA
 		case OMX_TI_IndexUseBufferDescriptor:
 			eRPCError = RPC_GetParameter(pCompPrv->hRemoteComp, nParamIndex, pParamStruct,
 				pLocBufNeedMap, &eCompReturn);

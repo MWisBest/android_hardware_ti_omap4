@@ -204,7 +204,7 @@ typedef enum OMX_TI_INDEXTYPE {
     OMX_TI_IndexConfigAVCHRDBufferSizeSetting,          /**< 0x7F00006F reference: OMX_TI_VIDEO_CONFIG_AVCHRDBUFFERSETTING */
     OMX_TI_IndexConfigFocusDistance,                    /**< 0x7F000070 reference: OMX_TI_CONFIG_FOCUSDISTANCETYPE */
     OMX_TI_IndexUseNativeBuffers,                       /**< 0x7F000071 reference: OMX_TI_ParamUseNativeBuffer(used only in proxy) */
-#ifdef DOMX_TUNA
+#ifdef OMAP_TUNA
     OMX_TI_IndexParamUseEnhancedPortReconfig,           /**< 0x7F000072 reference: OMX_TI_IndexParamUseEnhancedPortReconfig */
     OMX_TI_IndexEncoderStoreMetadatInBuffers,           /**< 0x7F000073 reference:  */
     OMX_TI_IndexParamZslHistoryLen,                     /**< 0x7F000074 reference: OMX_TI_PARAM_ZSLHISTORYLENTYPE */

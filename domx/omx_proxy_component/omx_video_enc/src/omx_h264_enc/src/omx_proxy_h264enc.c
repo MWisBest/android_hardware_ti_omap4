@@ -298,7 +298,7 @@ OMX_ERRORTYPE OMX_ComponentInit(OMX_HANDLETYPE hComponent)
 #endif
 	char value[OMX_MAX_STRINGNAME_SIZE];
 	OMX_U32 mEnableVFR = 1; /* Flag used to enable/disable VFR for Encoder */
-#ifndef DOMX_TUNA
+#ifndef OMAP_TUNA
 	property_get("debug.vfr.enable", value, "1");
 #else
 	property_get("debug.vfr.enable", value, "0");
@@ -456,6 +456,11 @@ OMX_ERRORTYPE LOCAL_PROXY_H264E_GetParameter(OMX_IN OMX_HANDLETYPE hComponent,
 	{
 		pPortDef = (OMX_PARAM_PORTDEFINITIONTYPE *)pParamStruct;
 
+#ifdef OMAP_TUNA
+		// hack to fix video recording artifacts on tuna
+		pPortDef->format.video.nStride = LINUX_PAGE_SIZE;
+#endif
+
 		if(pPortDef->format.video.eColorFormat == OMX_COLOR_FormatYUV420PackedSemiPlanar)
 		{
 #ifdef ANDROID_CUSTOM_OPAQUECOLORFORMAT
@@ -561,7 +566,7 @@ OMX_ERRORTYPE LOCAL_PROXY_H264E_SetParameter(OMX_IN OMX_HANDLETYPE hComponent,
 	{
 		pPortDef = (OMX_PARAM_PORTDEFINITIONTYPE *)pParamStruct;
 
-#ifdef DOMX_TUNA
+#ifdef OMAP_TUNA
 		// hack to fix video recording artifacts on tuna
 		pPortDef->format.video.nStride = LINUX_PAGE_SIZE;
 #endif

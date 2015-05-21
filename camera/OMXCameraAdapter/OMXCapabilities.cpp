@@ -1014,10 +1014,12 @@ status_t OMXCameraAdapter::insertPreviewFormats(CameraProperties::Properties* pa
     if ( NO_ERROR == ret ) {
         // need to advertise we support YV12 format
         // We will program preview port with NV21 when we see application set YV12
+#ifndef CAMERAHAL_TUNA
         if (supported[0] != '\0') {
             strncat(supported, PARAM_SEP, 1);
         }
         strncat(supported, android::CameraParameters::PIXEL_FORMAT_YUV420P, MAX_PROP_VALUE_LENGTH - 1);
+#endif
         params->set(CameraProperties::SUPPORTED_PREVIEW_FORMATS, supported);
     }
 
