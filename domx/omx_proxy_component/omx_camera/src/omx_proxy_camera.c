@@ -85,6 +85,7 @@ OMX_S32 dccbuf_size = 0;
 MEMPLUGIN_BUFFER_ACCESSOR sDccBuffer;
 #endif
 
+#ifdef OMAP_ENHANCEMENT_VTC
 /* ===========================================================================*/
 /**
  * @name _OMX_CameraVtcFreeMemory
@@ -263,8 +264,9 @@ static OMX_ERRORTYPE ComponentPrivateDeInit(OMX_IN OMX_HANDLETYPE hComponent)
         }
 #endif
 
+#ifdef OMAP_ENHANCEMENT_VTC
         OMX_CameraVtcFreeMemory(hComponent);
-
+#endif
 
     if(pCompPrv->pCompProxyPrv != NULL) {
         pCamPrv = (OMX_PROXY_CAM_PRIVATE*)pCompPrv->pCompProxyPrv;
@@ -312,7 +314,7 @@ static OMX_ERRORTYPE Camera_SendCommand(OMX_IN OMX_HANDLETYPE hComponent,
     if ((eCmd == OMX_CommandStateSet) &&
         (nParam == (OMX_STATETYPE) OMX_StateIdle))
     {
-#ifndef OMAP_TUNA
+#ifdef OMAP_ENHANCEMENT_VTC
         /* Allocate memory for Video VTC usecase, if applicable. */
         eError = _OMX_CameraVtcAllocateMemory(hComponent);
         if (eError != OMX_ErrorNone) {
@@ -358,12 +360,14 @@ static OMX_ERRORTYPE Camera_SendCommand(OMX_IN OMX_HANDLETYPE hComponent,
         }
     }
 
+#ifdef OMAP_ENHANCEMENT_VTC
     if ((eCmd == OMX_CommandStateSet) &&
 	(nParam == (OMX_STATETYPE) OMX_StateLoaded))
     {
         /* Clean up resources for Video VTC usecase. */
         OMX_CameraVtcFreeMemory(hComponent);
     }
+#endif
 
     eError =
 	PROXY_SendCommand(hComponent,eCmd,nParam,pCmdData);

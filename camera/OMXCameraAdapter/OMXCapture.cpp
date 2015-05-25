@@ -526,11 +526,12 @@ status_t OMXCameraAdapter::doExposureBracketing(int *evValues,
     }
 
     if ( NO_ERROR == ret ) {
+#ifdef OMAP_ENHANCEMENT_CPCAM
         if (bracketMode == OMX_BracketVectorShot) {
             ret = setVectorShot(evValues, evValues2, evModes2, evCount, frameCount, flush, bracketMode);
-        } else {
+        } else
+#endif
             ret = setExposureBracketing(evValues, evValues2, evCount, frameCount, bracketMode);
-        }
     }
 
     LOG_FUNCTION_NAME_EXIT;
@@ -538,6 +539,7 @@ status_t OMXCameraAdapter::doExposureBracketing(int *evValues,
     return ret;
 }
 
+#ifdef OMAP_ENHANCEMENT_CPCAM
 status_t OMXCameraAdapter::setVectorStop(bool toPreview)
 {
     status_t ret = NO_ERROR;
@@ -759,6 +761,7 @@ status_t OMXCameraAdapter::setVectorShot(int *evValues,
 
     return (ret | Utils::ErrorUtils::omxToAndroidError(eError));
 }
+#endif
 
 status_t OMXCameraAdapter::setExposureBracketing(int *evValues,
                                                  int *evValues2,
@@ -1418,7 +1421,7 @@ status_t OMXCameraAdapter::stopImageCapture()
             mStartCaptureSem.Create(0);
         }
     }
-#ifndef CAMERAHAL_TUNA
+#ifdef OMAP_ENHANCEMENT_CPCAM
     else if (CP_CAM == mCapMode) {
         // Reset shot config queue
         OMX_TI_CONFIG_ENQUEUESHOTCONFIGS resetShotConfigs;
@@ -1907,11 +1910,13 @@ status_t OMXCameraAdapter::UseBuffersCapture(CameraBuffer * bufArr, int num)
 #endif
         }
 
+#ifdef OMAP_ENHANCEMENT_CPCAM
         // CPCam mode only supports vector shot
         // Regular capture is not supported
         if ( (mCapMode == CP_CAM) && (mNextState != LOADED_REPROCESS_CAPTURE_STATE) ) {
             initVectorShot();
         }
+#endif
 
         mCaptureBuffersAvailable.clear();
         for (unsigned int i = 0; i < imgCaptureData->mMaxQueueable; i++ ) {
@@ -1934,7 +1939,7 @@ status_t OMXCameraAdapter::UseBuffersCapture(CameraBuffer * bufArr, int num)
             }
         }
 
-#ifndef CAMERAHAL_TUNA
+#ifdef OMAP_ENHANCEMENT_CPCAM
     // Choose proper single preview mode for cp capture (reproc or hs)
     if (( NO_ERROR == ret) && (OMXCameraAdapter::CP_CAM == mCapMode)) {
         OMX_TI_CONFIG_SINGLEPREVIEWMODETYPE singlePrevMode;
