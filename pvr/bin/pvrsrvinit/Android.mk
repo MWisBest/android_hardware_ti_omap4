@@ -4,15 +4,9 @@ include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := pvrsrvinit.c
 LOCAL_LDFLAGS := -L $(TARGET_OUT_VENDOR)/lib
-ifeq ($(TARGET_BOARD_OMAP_CPU),4470)
-LOCAL_LDLIBS := -lsrv_init_SGX544_112 -lsrv_um_SGX544_112
-pvrsrvinit: $(TARGET_OUT_VENDOR)/lib/libsrv_init_SGX544_112.so
-pvrsrvinit: $(TARGET_OUT_VENDOR)/lib/libsrv_um_SGX544_112.so
-else
-LOCAL_LDLIBS := -lsrv_init_SGX540_120 -lsrv_um_SGX540_120
-pvrsrvinit: $(TARGET_OUT_VENDOR)/lib/libsrv_init_SGX540_120.so
-pvrsrvinit: $(TARGET_OUT_VENDOR)/lib/libsrv_um_SGX540_120.so
-endif
+LOCAL_LDLIBS := -lsrv_init_SGX$(SGX_CORE)_$(SGX_CORE_REV) -lsrv_um_SGX$(SGX_CORE)_$(SGX_CORE_REV)
+pvrsrvinit: $(TARGET_OUT_VENDOR)/lib/libsrv_init_SGX$(SGX_CORE)_$(SGX_CORE_REV).so
+pvrsrvinit: $(TARGET_OUT_VENDOR)/lib/libsrv_um_SGX$(SGX_CORE)_$(SGX_CORE_REV).so
 LOCAL_MODULE_PATH := $(TARGET_OUT_EXECUTABLES)
 LOCAL_MODULE := pvrsrvinit
 LOCAL_MODULE_TAGS := optional
@@ -28,7 +22,7 @@ LOCAL_MODULE_CLASS := FAKE
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): PVR_FILE := libPVRScopeServices_SGX540_120.so
+$(LOCAL_BUILT_MODULE): PVR_FILE := libPVRScopeServices_SGX$(SGX_CORE)_$(SGX_CORE_REV).so
 $(LOCAL_BUILT_MODULE): SYMLINK := $(TARGET_OUT_VENDOR)/lib/$(LOCAL_MODULE)
 $(LOCAL_BUILT_MODULE): $(LOCAL_PATH)/Android.mk
 $(LOCAL_BUILT_MODULE):

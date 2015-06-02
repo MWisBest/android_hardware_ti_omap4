@@ -39,7 +39,8 @@ PRODUCT_PACKAGES += \
 # symlinks and pvr files
 PRODUCT_PACKAGES += \
     libion.so \
-    pvrsrvinit
+    pvrsrvinit \
+    libEGL_POWERVR_SGX54X
 
 # compatiblity for older binaries
 PRODUCT_PACKAGES += \
