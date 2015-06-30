@@ -146,7 +146,6 @@ EXIT:
    return eError;
 }
 
-#ifndef OMAP_TUNA
 /* ===========================================================================*/
 /**
  * @name _OMX_CameraVtcAllocateMemory
