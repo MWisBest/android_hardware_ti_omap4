@@ -64,6 +64,7 @@
 #include "OMX_TI_Common.h"
 #include "OMX_TI_Index.h"
 #include "OMX_TI_Core.h"
+#include "OMX_IndexExt.h"
 /*-------program files ----------------------------------------*/
 #include "omx_proxy_common.h"
 #include "omx_rpc.h"
@@ -1492,6 +1493,9 @@ OMX_ERRORTYPE __PROXY_GetParameter(OMX_IN OMX_HANDLETYPE hComponent,
 		     break;
 
 #endif
+		/* HACK: Fix crashing in Marshmallow */
+		case OMX_IndexParamConsumerUsageBits:
+			goto EXIT;
 		default:
 		{
 #ifdef USE_ION
